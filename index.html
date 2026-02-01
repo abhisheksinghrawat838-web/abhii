@@ -2,110 +2,149 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Valentine 💖</title>
+<title>Just One Question 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: linear-gradient(135deg, #ff4e78, #ff9a9e);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Poppins', sans-serif;
-        overflow: hidden;
-        color: #fff;
-        text-align: center;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    overflow: hidden;
+    color: #fff;
+}
 
-    .container {
-        z-index: 2;
-        animation: fadeIn 2s ease;
-    }
+.container {
+    padding: 20px;
+    z-index: 2;
+}
 
-    h1 {
-        font-size: 2.8rem;
-        margin-bottom: 10px;
-    }
+h1 {
+    font-size: 2.2rem;
+}
 
-    p {
-        font-size: 1.3rem;
-        margin-bottom: 30px;
-    }
+p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
 
-    button {
-        background: #fff;
-        color: #ff4e78;
-        border: none;
-        padding: 15px 35px;
-        font-size: 1.1rem;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
+.buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
 
-    button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
+button {
+    border: none;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+}
 
-    .heart {
-        position: absolute;
-        color: rgba(255,255,255,0.8);
-        font-size: 20px;
-        animation: float 6s linear infinite;
-    }
+.yes {
+    background: #fff;
+    color: #ff4e78;
+}
 
-    @keyframes float {
-        0% {
-            transform: translateY(100vh) scale(0.8);
-            opacity: 0;
-        }
-        10% { opacity: 1; }
-        100% {
-            transform: translateY(-10vh) scale(1.4);
-            opacity: 0;
-        }
-    }
+.no {
+    background: rgba(255,255,255,0.35);
+    color: #fff;
+    position: relative;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.9); }
-        to { opacity: 1; transform: scale(1); }
-    }
+/* NO text movement */
+.no span {
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+/* Effects */
+.effect {
+    position: absolute;
+    font-size: 26px;
+    animation: pop 2s ease-out forwards;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
 </style>
 </head>
+
 <body>
 
-<div class="container">
+<div class="container" id="box">
     <h1>Hey My Love 💕</h1>
-    <p>Life feels magical with you…</p>
-    <button onclick="proposal()">Tap to Continue 💖</button>
+    <p>I have something important to ask…</p>
+    <h1>Will you be my Valentine? 💍❤️</h1>
+
+    <div class="buttons">
+        <button class="yes" onclick="yesClick()">YES 💖</button>
+        <button class="no" onclick="noClick()"><span id="noText">NO 😔</span></button>
+    </div>
 </div>
 
 <script>
-    function proposal() {
-        document.querySelector('.container').innerHTML = `
-            <h1>Will You Be My Valentine? 💍❤️</h1>
-            <p>Not just today… but every day, every moment.</p>
-            <p>Forever sounds better with YOU 🥰</p>
-        `;
+let noCount = 0;
+
+const convinceLines = [
+    "😢 Aww… that hurts a little",
+    "💔 Are you sure? I’d treat you like magic ✨",
+    "🥺 I promise smiles, care & respect",
+    "❤️ One YES can change everything",
+    "🌸 Just give us a chance?"
+];
+
+function yesClick() {
+    document.getElementById("box").innerHTML = `
+        <h1>She Said YES 🥹❤️</h1>
+        <p>This made my heart so happy.</p>
+        <p>Forever starts now 💫</p>
+    `;
+    for (let i = 0; i < 30; i++) {
+        createEffect("🎆");
+        createEffect("🌸");
+        createEffect("🌹");
+    }
+}
+
+function noClick() {
+    const noText = document.getElementById("noText");
+    const x = Math.random() * 120 - 60;
+    const y = Math.random() * 80 - 40;
+    noText.style.transform = `translate(${x}px, ${y}px)`;
+
+    if (noCount < convinceLines.length) {
+        document.querySelector("p").innerText = convinceLines[noCount];
     }
 
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = Math.random() * 25 + 15 + "px";
-        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
+    for (let i = 0; i < 6; i++) {
+        createEffect("😢");
+        createEffect("💔");
     }
 
-    setInterval(createHeart, 300);
+    noCount++;
+}
+
+function createEffect(symbol) {
+    const el = document.createElement("div");
+    el.classList.add("effect");
+    el.innerHTML = symbol;
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.top = Math.random() * 100 + "vh";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2000);
+}
 </script>
 
 </body>
 </html>
+
