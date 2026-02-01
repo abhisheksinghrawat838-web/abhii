@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine 💖</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff4e78, #ff9a9e);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+        color: #fff;
+        text-align: center;
+    }
+
+    .container {
+        z-index: 2;
+        animation: fadeIn 2s ease;
+    }
+
+    h1 {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+    }
+
+    button {
+        background: #fff;
+        color: #ff4e78;
+        border: none;
+        padding: 15px 35px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .heart {
+        position: absolute;
+        color: rgba(255,255,255,0.8);
+        font-size: 20px;
+        animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(100vh) scale(0.8);
+            opacity: 0;
+        }
+        10% { opacity: 1; }
+        100% {
+            transform: translateY(-10vh) scale(1.4);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Hey My Love 💕</h1>
+    <p>Life feels magical with you…</p>
+    <button onclick="proposal()">Tap to Continue 💖</button>
+</div>
+
+<script>
+    function proposal() {
+        document.querySelector('.container').innerHTML = `
+            <h1>Will You Be My Valentine? 💍❤️</h1>
+            <p>Not just today… but every day, every moment.</p>
+            <p>Forever sounds better with YOU 🥰</p>
+        `;
+    }
+
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 25 + 15 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
