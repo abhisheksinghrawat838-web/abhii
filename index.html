@@ -2,79 +2,66 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Just One Question 💖</title>
+<title>Forever Valentine 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    overflow: hidden;
-    color: #fff;
+body{
+    margin:0;
+    height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Poppins,sans-serif;
+    text-align:center;
+    overflow:hidden;
+    color:#fff;
 }
 
-.container {
-    padding: 20px;
-    z-index: 2;
+.container{padding:20px;z-index:2}
+h1{font-size:2.2rem}
+p{font-size:1.2rem;margin-bottom:25px}
+
+.buttons{
+    display:flex;
+    gap:20px;
+    justify-content:center;
 }
 
-h1 {
-    font-size: 2.2rem;
+button{
+    border:none;
+    padding:15px 35px;
+    font-size:1.1rem;
+    border-radius:50px;
+    cursor:pointer;
 }
 
-p {
-    font-size: 1.2rem;
-    margin-bottom: 25px;
+.yes{background:#fff;color:#ff4e78}
+.no{background:rgba(255,255,255,.35);color:#fff}
+
+.effect{
+    position:absolute;
+    font-size:26px;
+    animation:pop 2s ease-out forwards;
 }
 
-.buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
+@keyframes pop{
+    0%{transform:scale(0);opacity:1}
+    100%{transform:scale(2.5);opacity:0}
 }
 
-button {
-    border: none;
-    padding: 15px 35px;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    overflow: hidden;
+.photo{
+    width:260px;
+    border-radius:20px;
+    margin-top:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    animation:fadeIn 2s ease forwards;
 }
 
-.yes {
-    background: #fff;
-    color: #ff4e78;
-}
-
-.no {
-    background: rgba(255,255,255,0.35);
-    color: #fff;
-    position: relative;
-}
-
-/* NO text movement */
-.no span {
-    display: inline-block;
-    transition: transform 0.3s;
-}
-
-/* Effects */
-.effect {
-    position: absolute;
-    font-size: 26px;
-    animation: pop 2s ease-out forwards;
-}
-
-@keyframes pop {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
+@keyframes fadeIn{
+    from{opacity:0;transform:scale(.8)}
+    to{opacity:1;transform:scale(1)}
 }
 </style>
 </head>
@@ -82,69 +69,63 @@ button {
 <body>
 
 <div class="container" id="box">
-    <h1>Hey My Love 💕</h1>
-    <p>I have something important to ask…</p>
-    <h1>Will you be my Valentine? 💍❤️</h1>
-
+    <h1>Will you be my forever Valentine, gullu baby? 💕</h1>
     <div class="buttons">
-        <button class="yes" onclick="yesClick()">YES 💖</button>
-        <button class="no" onclick="noClick()"><span id="noText">NO 😔</span></button>
+        <button class="yes" onclick="firstYes()">YES 💖</button>
+        <button class="no" onclick="sayNo()">NO 😔</button>
     </div>
 </div>
 
 <script>
-let noCount = 0;
+let step = 0;
 
-const convinceLines = [
-    "😢 Aww… that hurts a little",
-    "💔 Are you sure? I’d treat you like magic ✨",
-    "🥺 I promise smiles, care & respect",
-    "❤️ One YES can change everything",
-    "🌸 Just give us a chance?"
-];
+function firstYes(){
+    if(step === 0){
+        document.getElementById("box").innerHTML = `
+            <h1>Are you sure? 🥹❤️</h1>
+            <div class="buttons">
+                <button class="yes" onclick="finalYes()">YES 💖</button>
+                <button class="no" onclick="sayNo()">NO 😔</button>
+            </div>
+        `;
+        step = 1;
+    }
+}
 
-function yesClick() {
+function finalYes(){
     document.getElementById("box").innerHTML = `
-        <h1>She Said YES 🥹❤️</h1>
-        <p>This made my heart so happy.</p>
-        <p>Forever starts now 💫</p>
+        <h1>7 Crore ❤️</h1>
+        <p>Forever & always 💫</p>
+        <img src="us.jpg" class="photo">
     `;
-    for (let i = 0; i < 30; i++) {
+    for(let i=0;i<40;i++){
         createEffect("🎆");
         createEffect("🌸");
         createEffect("🌹");
     }
 }
 
-function noClick() {
-    const noText = document.getElementById("noText");
-    const x = Math.random() * 120 - 60;
-    const y = Math.random() * 80 - 40;
-    noText.style.transform = `translate(${x}px, ${y}px)`;
-
-    if (noCount < convinceLines.length) {
-        document.querySelector("p").innerText = convinceLines[noCount];
-    }
-
-    for (let i = 0; i < 6; i++) {
+function sayNo(){
+    document.getElementById("box").innerHTML = `
+        <h1>I’m not your cutuu babyy 😔💔</h1>
+        <p>😢 😢 😢</p>
+    `;
+    for(let i=0;i<15;i++){
         createEffect("😢");
         createEffect("💔");
     }
-
-    noCount++;
 }
 
-function createEffect(symbol) {
-    const el = document.createElement("div");
-    el.classList.add("effect");
-    el.innerHTML = symbol;
-    el.style.left = Math.random() * 100 + "vw";
-    el.style.top = Math.random() * 100 + "vh";
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 2000);
+function createEffect(symbol){
+    const e=document.createElement("div");
+    e.className="effect";
+    e.innerHTML=symbol;
+    e.style.left=Math.random()*100+"vw";
+    e.style.top=Math.random()*100+"vh";
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),2000);
 }
 </script>
 
 </body>
 </html>
-
